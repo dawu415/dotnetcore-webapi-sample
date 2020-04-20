@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using sample.Models;
+
 namespace sample.Controllers
 {
     [ApiController]
@@ -35,5 +39,14 @@ namespace sample.Controllers
             })
             .ToArray();
         }
+
+        // e.g. https://localhost:5001/weatherforecast/AU/MEL/1/2/2020
+        [HttpGet]
+        [Route("{country}/{city}/{day}/{month}/{year}")]
+        public string Get([FromRoute]WeatherRequest wr)
+        {
+            return JsonSerializer.Serialize(wr);
+        }
+
     }
 }
